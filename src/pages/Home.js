@@ -7,8 +7,8 @@ import AddStudentForm from "./AddStudentForm"
 const Home = () => {
 
   const [students, setStudents] = useState([])
-  const [studentName, setStudentname] = useState("")
-  const [studentAge, setStudentAge] = useState()
+  // const [studentName, setStudentname] = useState("")
+  // const [studentAge, setStudentAge] = useState()
 
   useEffect(() => {
     fetchStudents()
@@ -20,45 +20,45 @@ const Home = () => {
     setStudents(response)
   }
 
-  const postStudent = async (e) => {
-    e.preventDefault()
+  // const postStudent = async (e) => {
+  //   e.preventDefault()
 
-    if(studentName && studentAge){
+  //   if(studentName && studentAge){
 
-      const student = {
-        name: studentName,
-        age: studentAge
-      }
+  //     const student = {
+  //       name: studentName,
+  //       age: studentAge
+  //     }
 
-      const request = await fetch('http://localhost:5000/students', {
-        method: 'POST',
-        headers: {
-          'Content-Type':'application/json'
-        },
-        body: JSON.stringify(student)
-      })
-      const response = await request.json()
+  //     const request = await fetch('http://localhost:5000/students', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type':'application/json'
+  //       },
+  //       body: JSON.stringify(student)
+  //     })
+  //     const response = await request.json()
 
-      resetForm()
-    }else{
-      alert('Please fill all fields')
-    }
+  //     resetForm()
+  //   }else{
+  //     alert('Please fill all fields')
+  //   }
 
 
-  }
+  // }
 
-  const getName = e => {
-    setStudentname(e.target.value)
-  }
+  // const getName = e => {
+  //   setStudentname(e.target.value)
+  // }
 
-  const getAge = e => {
-    setStudentAge(e.target.value)
-  }
+  // const getAge = e => {
+  //   setStudentAge(e.target.value)
+  // }
 
-  const resetForm = () => {
-    setStudentname("")
-    setStudentAge(0)
-  }
+  // const resetForm = () => {
+  //   setStudentname("")
+  //   setStudentAge(0)
+  // }
 
 
 
