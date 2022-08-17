@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom"
-import { useEffect,  useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 
 const AddStudentForm = (props) => {
 
   const [studentName, setStudentname] = useState("")
-  const [studentAge, setStudentAge] = useState()
+  const [studentAge, setStudentAge] = useState(0)
+  const navigate = useNavigate()
 
   const postStudent = async (e) => {
     e.preventDefault()
 
-    if(studentName && studentAge){
+    if(studentName && studentAge>0){
 
       const student = {
         name: studentName,
@@ -26,12 +27,15 @@ const AddStudentForm = (props) => {
       })
       const response = await request.json()
 
-      resetForm()
+      if(request.status === 201){
+        navigate(`/students/success/${student.name}`)
+      }else{
+        alert(`${request.status} ${request.statusText}`)
+      }
+
     }else{
-      alert('Please fill all fields')
+      alert('Please fill all fields & age must be higher than 0')
     }
-
-
   }
 
   const getName = e => {
@@ -42,22 +46,15 @@ const AddStudentForm = (props) => {
     setStudentAge(e.target.value)
   }
 
-  const resetForm = () => {
-    setStudentname("")
-    setStudentAge(0)
-  }
 
-
-
-  // const {onSubmit, onChangeName, onChangeAge, studentAge, studentName} = props
   return(
     <>
-      <form onSubmit={postStudent} className="">
-        <input placeholder="Name" type='text' onChange={getName} value={studentName} />
-        <input placeholder="age" type="number" onChange={getAge} value={studentAge}/>
-        <button type="submit">Submit</button>
+      <form onSubmit={postStudent} className="flex flex-col gap-2">
+        <input placeholder="Name" type='text' onChange={getName} value={studentName} className="py-1 px-2 rounded-md"/>
+        <input placeholder="age" type="number" onChange={getAge} value={studentAge} className="py-1 px-2 rounded-md"/>
+        <button type="submit" className="border-2 px-2 py-1 rounded-md hover:bg-gray-500/50 font-medium mt-5">Submit</button>
       </form>
-      <Link to={'/'}>Go to Home</Link>
+      <Link to={'/'}><button className="border-2 px-2 py-1 rounded-md hover:bg-gray-500/50 font-medium mt-5">Go Home</button></Link>
     </>
   )
 }

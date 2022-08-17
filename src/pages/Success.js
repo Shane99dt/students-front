@@ -1,11 +1,15 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 
 const Success = () => {
+  const params = useParams()
+  const { name } = params
+
+
   return(
     <>
-      <p>Success Add</p>
-      <Link to={'/students'}>Go to Home</Link>
+      <h2><span className="font-medium">{name}</span> has been added successfully</h2>
+      <Link to={'/students'}>All students</Link>
     </>
   )
 }
